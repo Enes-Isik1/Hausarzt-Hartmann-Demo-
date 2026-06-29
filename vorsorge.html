@@ -51,13 +51,22 @@
   .footer-bottom { padding:1.5rem 5rem; display:flex; justify-content:space-between; align-items:center; font-size:0.73rem; opacity:0.35; }
 
   @media (max-width: 1024px) {
+    .topbar { padding: 0.5rem 1rem; flex-direction: column; gap: 0.5rem; text-align: center; }
+    .topbar-right { gap: 1rem; flex-wrap: wrap; justify-content: center; }
+    
     nav { padding: 1rem 1.5rem; flex-direction: column; gap: 1rem; text-align: center; }
     .nav-links { display: flex; flex-wrap: wrap; justify-content: center; gap: 1rem; }
-    .btn-termin { width: 100%; text-align: center; }
+    .nav-actions { display: flex; flex-direction: column; gap: 0.5rem; width: 100%; }
+    .btn-tel, .btn-termin { width: 100%; text-align: center; }
+    
+    .notice-bar { padding: 1rem; flex-direction: column; text-align: center; gap: 0.5rem; }
+    
     .service-hero { padding: 3rem 1.5rem; }
     .service-hero h1 { font-size: 1.8rem; }
+    
     .container { grid-template-columns: 1fr; gap: 2rem; padding: 2.5rem 1.5rem; }
     .footer-bottom { padding: 1.5rem; text-align: center; justify-content: center; flex-direction: column; gap: 0.5rem; }
+  }
   }
 </style>
 </head>
@@ -127,5 +136,20 @@
     <span>© 2024 Dr. med. Andreas Hartmann · Alle Rechte vorbehalten</span>
   </div>
 </footer>
+
+ <!-- JAVASCRIPT FOR DROPDOWN -->
+<script>
+  document.getElementById('leistungenToggle').addEventListener('click', function(e) {
+    e.preventDefault();
+    document.getElementById('leistungenDropdown').classList.toggle('show');
+  });
+
+  window.addEventListener('click', function(e) {
+    if (!document.getElementById('leistungenToggle').contains(e.target)) {
+      document.getElementById('leistungenDropdown').classList.remove('show');
+    }
+  });
+</script>
+ 
 </body>
 </html>
