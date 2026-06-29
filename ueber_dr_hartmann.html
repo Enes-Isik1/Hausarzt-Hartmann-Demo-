@@ -13,7 +13,7 @@
     --off-white: #F6F8FA; --text: #1A2733; --text-muted: #5A6E7F;
     --accent: #2E86C1; --border: rgba(13,43,69,0.1);
   }
-  body { font-family: 'IBM Plex Sans', sans-serif; background: var(--white); color: var(--text); padding: 4rem 2rem; }
+  body { font-family: 'IBM Plex Sans', sans-serif; background: var(--white); color: var(--text); padding: 4rem 2rem; overflow-x: hidden; }
   .container { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1.2fr; gap: 4rem; align-items: center; }
   .image-box { position: relative; overflow: hidden; border: 1px solid var(--border); box-shadow: 0 4px 20px rgba(0,0,0,0.05); }
   .image-box img { width: 100%; height: 100%; object-fit: cover; display: block; }
@@ -28,89 +28,13 @@
   .vita-desc { color: var(--text); font-weight: 300; }
   .btn-back { display: inline-block; margin-top: 2rem; color: var(--blue); text-decoration: none; font-size: 0.85rem; font-weight: 500; }
 
-	@media (max-width: 1024px) {
-
-    /* Global Paddings reduzieren */
-    .topbar, nav, .notice-bar, .leistungen, .team, .info-section, .appointment, .testimonials, .footer-main, .footer-bottom {
-      padding-left: 1.5rem !important;
-      padding-right: 1.5rem !important;
-    }
-
-    /* Topbar Anpassung */
-    .topbar { flex-direction: column; text-align: center; gap: 0.5rem; padding-top: 0.6rem; padding-bottom: 0.6rem; }
-    .topbar-right { flex-direction: column; gap: 0.4rem; align-items: center; }
-
-    /* Hamburger Menu anzeigen */
-    .menu-toggle { display: flex; }
-
-    /* Navigationsleiste mobil umgestalten */
-    nav { padding-top: 0.8rem; padding-bottom: 0.8rem; }
-    .nav-links {
-      position: absolute; top: 100%; left: 0; right: 0;
-      background: var(--white); border-bottom: 1px solid var(--border);
-      flex-direction: column; gap: 0; padding: 0;
-      max-height: 0; overflow: hidden; opacity: 0;
-      transition: all 0.35s ease-in-out; pointer-events: none;
-      box-shadow: 0 10px 15px rgba(0,0,0,0.05);
-    }
-    .nav-links.active { max-height: 500px; opacity: 1; pointer-events: auto; }
-    .nav-links li { border-bottom: 1px solid rgba(13,43,69,0.05); width: 100%; }
-    .nav-links li a { padding: 1rem 1.5rem; display: block; font-size: 0.9rem; font-weight: 500; }
-    
-    /* Mobiles Dropdown */
-    .dropdown-menu { position: static; transform: none !important; opacity: 1; visibility: visible; display: none; box-shadow: none; background: var(--off-white); padding: 0; margin: 0; border: none; border-top: 1px solid rgba(13,43,69,0.05); }
-    .dropdown-menu.show { display: flex; }
-    .dropdown-menu li a { padding-left: 2.5rem; }
-    .nav-actions { display: none; } /* Standard-Buttons ausblenden für mobiles cleanes Design */
-
-    /* Notice Bar zentrieren */
-    .notice-bar { text-align: center; justify-content: center; font-size: 0.8rem; }
-
-    /* Hero Sektion */
-    .hero { grid-template-columns: 1fr; min-height: auto; }
-    .hero-left { padding: 4rem 1.5rem; }
-    .hero-title { font-size: 2rem; }
-    .hero-ctas { flex-direction: column; gap: 0.8rem; }
-    .btn-primary-lg, .btn-secondary-lg { width: 100%; }
-    .hero-info-row { grid-template-columns: 1fr; gap: 1rem; margin-top: 2rem; padding-top: 1.5rem; }
-    .hero-right { height: 300px; order: -1; } /* Bild nach oben auf dem Handy */
-    .hero-card { left: 1.5rem; bottom: 1.5rem; right: 1.5rem; max-width: none; }
-
-    /* Sektions-Header */
-    .section-header { margin-bottom: 2.5rem; }
-    .section-title { font-size: 1.6rem; }
-
-    /* Raster-Strukturen auf einspaltig brechen */
-    .leistungen-grid { grid-template-columns: 1fr; gap: 1.2rem; }
-    .team-grid { grid-template-columns: 1fr; gap: 1.5rem; margin-top: 2.5rem; }
-    .testi-grid { grid-template-columns: 1fr; gap: 1.2rem; margin-top: 2.5rem; }
-
-    /* Praxis Sektion */
-    .praxis { grid-template-columns: 1fr; }
-    .praxis-content { padding: 4rem 1.5rem; }
-    .praxis-facts { grid-template-columns: 1fr 1fr; gap: 1rem; }
-    .praxis-image { height: 280px; }
-
-    /* Info & Sprechzeiten */
-    .info-section { grid-template-columns: 1fr; gap: 3rem; padding-top: 4rem; padding-bottom: 4rem; }
-    .info-block h3 { margin-bottom: 1rem; }
-
-    /* Termin Sektion */
-    .appointment { grid-template-columns: 1fr; gap: 3rem; padding-top: 4rem; padding-bottom: 4rem; }
-    .appt-form { padding: 1.5rem; }
-    .form-row { grid-template-columns: 1fr; gap: 0; }
-
-    /* Footer */
-    .footer-main { grid-template-columns: 1fr; gap: 2rem; padding-top: 3rem; padding-bottom: 3rem; }
-    .footer-bottom { flex-direction: column; text-align: center; gap: 1rem; padding-top: 1.5rem; padding-bottom: 1.5rem; }
-    .footer-bottom-links { justify-content: center; gap: 1.5rem; }
+  @media (max-width: 1024px) {
+    body { padding: 2.5rem 1rem; }
+    .container { grid-template-columns: 1fr; gap: 2rem; }
+    .section-title { font-size: 1.8rem; }
+    .vita-item { grid-template-columns: 1fr; gap: 0.2rem; margin-bottom: 0.5rem; }
+    .btn-back { display: block; text-align: center; }
   }
-
-  /* Hamburger-Animation wenn aktiv */
-  .menu-toggle.open span:nth-child(1) { transform: rotate(45deg) translate(6px, 6px); }
-  .menu-toggle.open span:nth-child(2) { opacity: 0; }
-  .menu-toggle.open span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
-
 </style>
 </head>
 <body>
