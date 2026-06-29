@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Leistung – Dr. med. Andreas Hartmann</title>
+<title>Vorsorgeuntersuchungen – Dr. med. Andreas Hartmann</title>
 <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=IBM+Plex+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
@@ -15,16 +15,38 @@
   }
   body { font-family: 'IBM Plex Sans', sans-serif; background: var(--white); color: var(--text); overflow-x: hidden; }
   
+  /* TOPBAR */
+  .topbar { background:var(--navy); color:rgba(255,255,255,0.7); padding:0.5rem 5rem; display:flex; justify-content:space-between; align-items:center; font-size:0.78rem; }
+  .topbar a { color:rgba(255,255,255,0.7); text-decoration:none; }
+  .topbar-right { display:flex; gap:2rem; }
+  .emergency-badge { background:#C0392B; color:white; padding:0.3rem 0.8rem; font-size:0.72rem; font-weight:500; letter-spacing:0.05em; }
+
+  /* NAV & DROPDOWN STYLE */
   nav { position:sticky; top:0; z-index:100; background:var(--white); border-bottom:1px solid var(--border); padding:1rem 5rem; display:flex; align-items:center; justify-content:space-between; box-shadow:0 1px 8px rgba(0,0,0,0.06); }
   .nav-logo { display:flex; flex-direction:column; text-decoration:none; }
   .nav-logo-name { font-family:'Libre Baskerville',serif; font-size:1.1rem; font-weight:700; color:var(--navy); }
   .nav-logo-sub { font-size:0.7rem; letter-spacing:0.08em; text-transform:uppercase; color:var(--text-muted); margin-top:0.1rem; }
   .nav-links { display:flex; gap:2rem; list-style:none; }
-  .nav-links a { font-size:0.82rem; color:var(--text-muted); text-decoration:none; transition:color 0.2s; }
+  .nav-links li { position: relative; }
+  .nav-links a { font-size:0.82rem; color:var(--text-muted); text-decoration:none; transition:color 0.2s; display:flex; align-items:center; gap:0.25rem; }
   .nav-links a:hover { color:var(--blue); }
+  
+  .dropdown-menu { display:none; position:absolute; top:100%; left:0; background:white; border:1px solid var(--border); box-shadow:0 4px 12px rgba(0,0,0,0.08); padding:0.5rem 0; min-width:220px; list-style:none; z-index:10; }
+  .dropdown-menu.show { display:block; }
+  .dropdown-menu a { padding:0.6rem 1.2rem; font-size:0.8rem; color:var(--text-muted); display:block; }
+  .dropdown-menu a:hover { background:var(--sky-soft); color:var(--blue); }
+
+  .nav-actions { display:flex; gap:1rem; align-items:center; }
+  .btn-tel { background:transparent; color:var(--blue); border:1px solid var(--blue); padding:0.6rem 1.4rem; font-family:'IBM Plex Sans',sans-serif; font-size:0.78rem; font-weight:500; cursor:pointer; transition:all 0.2s; }
+  .btn-tel:hover { background:var(--sky-soft); }
   .btn-termin { background:var(--blue); color:white; border:none; padding:0.6rem 1.4rem; font-family:'IBM Plex Sans',sans-serif; font-size:0.78rem; font-weight:500; cursor:pointer; transition:background 0.2s; text-decoration:none; }
   .btn-termin:hover { background:var(--navy); }
 
+  /* NOTICE BAR */
+  .notice-bar { background: var(--sky-soft); border-bottom: 1px solid var(--border); padding: 0.75rem 5rem; display: flex; gap: 1rem; align-items: center; font-size: 0.85rem; }
+  .notice-text { color: var(--navy); }
+
+  /* HERO & MAIN CONTENT */
   .service-hero { background: var(--navy); color: white; padding: 5rem 5rem; text-align: left; position: relative; }
   .service-hero .breadcrumbs { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--sky); margin-bottom: 1rem; }
   .service-hero .breadcrumbs a { color: inherit; text-decoration: none; }
@@ -39,6 +61,7 @@
   .highlight-box { background: var(--sky-soft); border-left: 4px solid var(--blue); padding: 1.5rem; margin: 2rem 0; }
   .highlight-box p { margin: 0; font-weight: 400; color: var(--navy); }
 
+  /* SIDEBAR */
   .sidebar { background: var(--off-white); border: 1px solid var(--border); padding: 2rem; height: fit-content; }
   .sidebar h3 { font-family: 'Libre Baskerville', serif; font-size: 1.15rem; color: var(--navy); margin-bottom: 1rem; }
   .sidebar-box { margin-bottom: 1.5rem; padding-bottom: 1.5rem; border-bottom: 1px solid var(--border); }
@@ -47,9 +70,11 @@
   .btn-sidebar { display: block; text-align: center; background: var(--blue); color: white; text-decoration: none; padding: 0.8rem; font-size: 0.85rem; font-weight: 500; margin-top: 1rem; transition: background 0.2s; }
   .btn-sidebar:hover { background: var(--navy); }
 
+  /* FOOTER */
   footer { background:var(--navy); color:rgba(255,255,255,0.5); border-top: 1px solid rgba(255,255,255,0.1); }
   .footer-bottom { padding:1.5rem 5rem; display:flex; justify-content:space-between; align-items:center; font-size:0.73rem; opacity:0.35; }
 
+  /* RESPONSIVE DESIGN (MOBILE & TABLET) */
   @media (max-width: 1024px) {
     .topbar { padding: 0.5rem 1rem; flex-direction: column; gap: 0.5rem; text-align: center; }
     .topbar-right { gap: 1rem; flex-wrap: wrap; justify-content: center; }
@@ -67,11 +92,21 @@
     .container { grid-template-columns: 1fr; gap: 2rem; padding: 2.5rem 1.5rem; }
     .footer-bottom { padding: 1.5rem; text-align: center; justify-content: center; flex-direction: column; gap: 0.5rem; }
   }
-  }
 </style>
 </head>
 <body>
 
+<!-- TOPBAR -->
+<div class="topbar">
+  <div>📍 Musterstraße 21, 12345 Musterstadt &nbsp;·&nbsp; U-Bahn: Stadtmitte</div>
+  <div class="topbar-right">
+    <span>📞 <a href="tel:+491234567890">+49 (0) 123 456 789</a></span>
+    <span>✉ <a href="#">praxis@dr-hartmann.de</a></span>
+    <span class="emergency-badge">Notfall: 116 117</span>
+  </div>
+</div>
+
+<!-- NAVIGATION -->
 <nav>
   <a href="hausarzt.html" class="nav-logo">
     <span class="nav-logo-name">Dr. med. Andreas Hartmann</span>
@@ -93,15 +128,29 @@
     <li><a href="hausarzt.html#team">Team</a></li>
     <li><a href="hausarzt.html#zeiten">Sprechzeiten</a></li>
   </ul>
-  <a href="hausarzt.html#termin" class="btn-termin">Online-Termin</a>
+  <div class="nav-actions">
+    <button class="btn-tel" onclick="window.location.href='tel:+491234567890'">📞 Anrufen</button>
+    <button class="btn-termin" onclick="window.location.href='hausarzt.html#termin'">Online-Termin</button>
+  </div>
 </nav>
 
+<!-- INFOBAR -->
+<div class="notice-bar">
+  <span>ℹ️</span>
+  <div class="notice-text">
+    <strong>Aktuelle Information:</strong>
+    <span> Urlaubsvertretung vom 15.–29. August 2024. In dringenden Fällen wenden Sie sich an die Bereitschaftspraxis (116 117).</span>
+  </div>
+</div>
+
 <main>
+  <!-- HERO HEADER -->
   <section class="service-hero">
     <div class="breadcrumbs"><a href="hausarzt.html">Startseite</a> / Leistungen</div>
     <h1>Vorsorgeuntersuchungen (Check-ups)</h1>
   </section>
 
+  <!-- CONTENT INHALT -->
   <div class="container">
     <div class="content-main">
       <h2>Prävention steht für uns an erster Stelle</h2>
@@ -121,6 +170,7 @@
       </ul>
     </div>
     
+    <!-- SIDEBAR -->
     <div class="sidebar">
       <div class="sidebar-box">
         <h3>Wichtiger Hinweis</h3>
@@ -131,13 +181,14 @@
   </div>
 </main>
 
+<!-- FOOTER -->
 <footer>
   <div class="footer-bottom">
     <span>© 2024 Dr. med. Andreas Hartmann · Alle Rechte vorbehalten</span>
   </div>
 </footer>
 
- <!-- JAVASCRIPT FOR DROPDOWN -->
+<!-- JAVASCRIPT FOR DROPDOWN -->
 <script>
   document.getElementById('leistungenToggle').addEventListener('click', function(e) {
     e.preventDefault();
@@ -150,6 +201,6 @@
     }
   });
 </script>
- 
+
 </body>
 </html>
