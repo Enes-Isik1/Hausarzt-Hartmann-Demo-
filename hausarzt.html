@@ -1,0 +1,622 @@
+
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dr. med. Andreas Hartmann – Hausarztpraxis</title>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=IBM+Plex+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --navy: #0D2B45; --navy-light: #163E60; --blue: #1B6CA8;
+    --sky: #D6EAF8; --sky-soft: #EBF5FB; --white: #FFFFFF;
+    --off-white: #F6F8FA; --text: #1A2733; --text-muted: #5A6E7F;
+    --accent: #2E86C1; --green: #1A7A4A; --green-light: #D5F0E3; --border: rgba(13,43,69,0.1);
+  }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'IBM Plex Sans', sans-serif; background: var(--white); color: var(--text); overflow-x: hidden; }
+
+  /* TOPBAR */
+  .topbar { background:var(--navy); color:rgba(255,255,255,0.7); padding:0.5rem 5rem; display:flex; justify-content:space-between; align-items:center; font-size:0.78rem; }
+  .topbar a { color:rgba(255,255,255,0.7); text-decoration:none; }
+  .topbar-right { display:flex; gap:2rem; }
+  .emergency-badge { background:#C0392B; color:white; padding:0.3rem 0.8rem; font-size:0.72rem; font-weight:500; letter-spacing:0.05em; }
+
+  /* NAV */
+  nav { position:sticky; top:0; z-index:100; background:var(--white); border-bottom:1px solid var(--border); padding:1rem 5rem; display:flex; align-items:center; justify-content:space-between; box-shadow:0 1px 8px rgba(0,0,0,0.06); }
+  .nav-logo { display:flex; flex-direction:column; }
+  .nav-logo-name { font-family:'Libre Baskerville',serif; font-size:1.1rem; font-weight:700; color:var(--navy); }
+  .nav-logo-sub { font-size:0.7rem; letter-spacing:0.08em; text-transform:uppercase; color:var(--text-muted); margin-top:0.1rem; }
+  .nav-links { display:flex; gap:2rem; list-style:none; }
+  .nav-links a { font-size:0.82rem; color:var(--text-muted); text-decoration:none; transition:color 0.2s; }
+  .nav-links a:hover { color:var(--blue); }
+  .nav-actions { display:flex; gap:0.8rem; align-items:center; }
+  .btn-tel { background:transparent; border:1.5px solid var(--blue); color:var(--blue); padding:0.55rem 1.2rem; font-family:'IBM Plex Sans',sans-serif; font-size:0.78rem; font-weight:500; cursor:pointer; transition:all 0.2s; }
+  .btn-tel:hover { background:var(--sky); }
+  .btn-termin { background:var(--blue); color:white; border:none; padding:0.6rem 1.4rem; font-family:'IBM Plex Sans',sans-serif; font-size:0.78rem; font-weight:500; cursor:pointer; transition:background 0.2s; }
+  .btn-termin:hover { background:var(--navy); }
+  .nav-links li { position: relative; }
+  .dropdown-toggle { cursor: pointer; display: flex; align-items: center; gap: 0.3rem; }
+  .dropdown-menu { position: absolute; top: 100%; left: 50%; transform: translateX(-50%) translateY(10px); background: var(--white); border: 1px solid var(--border); box-shadow_ 0 10px 30px rgba(0,0,0,0.08);
+                   padding: 1rem 0; list-style: none; display: flex; flex-direction: column; min-width: 240px; opacity: 0; visibility: hidden; transition: all 0.2s ease; z-index: 200; margin-top: 0.5rem; }
+  .dropdown-menu.show { opacity: 1; visibility: visible; transform: translateX(-50%) translateY(0); }
+  .dropdown-menu li a { padding: 0.7rem 1.5rem; display: block; width: 100%; font-size: 0.82rem; color: var(--text-muted); transition: background 0.2s, color 0.2s; }
+  .dropdown-menu li a:hover { background: var(--sky-soft); color: var(--blue); }
+
+  /* HERO */
+  .hero { display:grid; grid-template-columns:1fr 1fr; min-height:85vh; }
+  .hero-left { padding:5rem 4rem 5rem 6rem; display:flex; flex-direction:column; justify-content:center; background:var(--off-white); }
+  .hero-badge { display:inline-flex; align-items:center; gap:0.5rem; background:var(--green-light); color:var(--green); padding:0.4rem 1rem; font-size:0.72rem; font-weight:500; letter-spacing:0.08em; text-transform:uppercase; margin-bottom:2rem; width:fit-content; }
+  .hero-badge::before { content:'●'; font-size:0.5rem; animation:pulse 2s infinite; }
+  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.3} }
+  .hero-title { font-family:'Libre Baskerville',serif; font-size:clamp(2.2rem,3.5vw,3.6rem); line-height:1.15; font-weight:400; margin-bottom:1.5rem; color:var(--navy); }
+  .hero-title strong { font-weight:700; display:block; }
+  .hero-sub { font-size:0.95rem; line-height:1.9; color:var(--text-muted); max-width:44ch; font-weight:300; margin-bottom:2.5rem; }
+  .hero-ctas { display:flex; gap:1rem; }
+  .btn-primary-lg { background:var(--blue); color:white; border:none; padding:0.9rem 2.2rem; font-family:'IBM Plex Sans',sans-serif; font-size:0.85rem; font-weight:500; cursor:pointer; transition:background 0.2s; }
+  .btn-primary-lg:hover { background:var(--navy); }
+  .btn-secondary-lg { background:transparent; color:var(--navy); border:1.5px solid var(--border); padding:0.9rem 2.2rem; font-family:'IBM Plex Sans',sans-serif; font-size:0.85rem; font-weight:400; cursor:pointer; transition:all 0.2s; }
+  .btn-secondary-lg:hover { border-color:var(--blue); color:var(--blue); }
+  .hero-info-row { margin-top:3rem; padding-top:2rem; border-top:1px solid var(--border); display:grid; grid-template-columns:repeat(3,1fr); gap:1.5rem; }
+  .hero-info-label { font-size:0.68rem; letter-spacing:0.12em; text-transform:uppercase; color:var(--text-muted); }
+  .hero-info-val { font-size:0.88rem; font-weight:500; color:var(--navy); margin-top:0.2rem; }
+
+  .hero-right { position:relative; overflow:hidden; }
+  .hero-right img { width:100%; height:100%; object-fit:cover; display:block; }
+  .hero-right::after { content:''; position:absolute; inset:0; background:linear-gradient(to right, rgba(246,248,250,0.2), transparent 40%); pointer-events:none; }
+  .hero-card { position:absolute; bottom:3rem; left:-2rem; background:white; padding:1.5rem 2rem; border-left:3px solid var(--blue); box-shadow:0 4px 20px rgba(0,0,0,0.1); max-width:260px; z-index:2; }
+  .hero-card-title { font-size:0.72rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--blue); margin-bottom:0.5rem; }
+  .hero-card-text { font-size:0.85rem; color:var(--navy); font-weight:500; line-height:1.5; }
+  .hero-card-sub { font-size:0.75rem; color:var(--text-muted); margin-top:0.3rem; }
+
+  /* NOTICE BAR */
+  .notice-bar { background:#FEF9E7; border-top:2px solid #F0B429; border-bottom:1px solid rgba(240,180,41,0.3); padding:0.9rem 5rem; display:flex; align-items:center; gap:1rem; font-size:0.83rem; }
+  .notice-text strong { font-weight:500; color:#7D5A00; }
+  .notice-text span { color:#7D5A00; }
+
+  /* LEISTUNGEN */
+  .leistungen { padding:7rem 5rem; }
+  .section-header { margin-bottom:3.5rem; }
+  .section-eyebrow { font-size:0.7rem; letter-spacing:0.2em; text-transform:uppercase; color:var(--blue); margin-bottom:0.8rem; display:flex; align-items:center; gap:0.8rem; }
+  .section-eyebrow::after { content:''; flex:0 0 2.5rem; height:1px; background:var(--blue); }
+  .section-title { font-family:'Libre Baskerville',serif; font-size:clamp(1.8rem,2.5vw,2.6rem); font-weight:400; color:var(--navy); line-height:1.25; }
+  .section-title em { font-style:italic; }
+  .leistungen-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:1.5rem; }
+  .leistung-card { background:var(--off-white); border:1px solid var(--border); overflow:hidden; transition:all 0.25s; border-top:3px solid transparent; }
+  .leistung-card:hover { border-top-color:var(--blue); background:white; box-shadow:0 4px 20px rgba(0,0,0,0.06); }
+  .leistung-card img { width:100%; aspect-ratio:16/9; object-fit:cover; display:block; transition:transform 0.5s; }
+  .leistung-card:hover img { transform:scale(1.04); }
+  .leistung-card-body { padding:1.5rem; }
+  .leistung-title { font-family:'Libre Baskerville',serif; font-size:1.05rem; font-weight:700; color:var(--navy); margin-bottom:0.6rem; }
+  .leistung-desc { font-size:0.83rem; line-height:1.7; color:var(--text-muted); font-weight:300; }
+  .leistung-link { display:inline-block; margin-top:1rem; font-size:0.75rem; color:var(--blue); font-weight:500; text-decoration:none; letter-spacing:0.05em; }
+
+  /* PRAXIS */
+  .praxis { display:grid; grid-template-columns:1fr 1fr; }
+  .praxis-content { background:var(--navy); color:white; padding:6rem 5rem; }
+  .praxis-content .section-eyebrow { color:var(--sky); }
+  .praxis-content .section-eyebrow::after { background:var(--sky); }
+  .praxis-content .section-title { color:white; margin-bottom:1.5rem; }
+  .praxis-content p { font-size:0.9rem; line-height:1.9; color:rgba(255,255,255,0.6); font-weight:300; margin-bottom:1rem; }
+  .praxis-facts { display:grid; grid-template-columns:1fr 1fr; gap:1.5rem; margin-top:2.5rem; }
+  .fact { background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.1); padding:1.2rem 1.5rem; }
+  .fact-num { font-family:'Libre Baskerville',serif; font-size:2rem; font-weight:700; color:var(--sky); line-height:1; }
+  .fact-label { font-size:0.72rem; letter-spacing:0.1em; text-transform:uppercase; color:rgba(255,255,255,0.4); margin-top:0.3rem; }
+  .praxis-image { position:relative; overflow:hidden; }
+  .praxis-image img { width:100%; height:100%; object-fit:cover; display:block; }
+
+  /* TEAM */
+  .team { padding:7rem 5rem; background:var(--sky-soft); }
+  .team-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:1.5rem; margin-top:3.5rem; }
+  .team-card { background:white; border:1px solid var(--border); overflow:hidden; }
+  .team-photo { aspect-ratio:1; overflow:hidden; }
+  .team-photo img { width:100%; height:100%; object-fit:cover; display:block; transition:transform 0.5s; }
+  .team-card:hover .team-photo img { transform:scale(1.06); }
+  .team-info { padding:1.5rem; }
+  .team-name { font-family:'Libre Baskerville',serif; font-size:1rem; font-weight:700; color:var(--navy); margin-bottom:0.2rem; }
+  .team-role { font-size:0.72rem; letter-spacing:0.08em; text-transform:uppercase; color:var(--blue); font-weight:500; margin-bottom:0.5rem; }
+  .team-spec { font-size:0.78rem; color:var(--text-muted); line-height:1.5; font-weight:300; }
+
+  /* INFO SECTION */
+  .info-section { padding:7rem 5rem; display:grid; grid-template-columns:1.2fr 1fr 1fr; gap:4rem; }
+  .info-block h3 { font-family:'Libre Baskerville',serif; font-size:1.2rem; font-weight:700; color:var(--navy); margin-bottom:1.5rem; padding-bottom:0.8rem; border-bottom:2px solid var(--blue); }
+  .hours-table { width:100%; border-collapse:collapse; }
+  .hours-table tr td { padding:0.65rem 0; font-size:0.85rem; border-bottom:1px solid var(--border); }
+  .hours-table tr td:first-child { color:var(--text-muted); }
+  .hours-table tr td:last-child { font-weight:500; color:var(--navy); text-align:right; }
+  .hours-table tr:last-child td { border-bottom:none; }
+  .closed { color:#C0392B !important; font-weight:400 !important; }
+  .contact-list { display:flex; flex-direction:column; gap:1.2rem; }
+  .contact-item { display:flex; gap:1rem; align-items:flex-start; }
+  .contact-icon { width:36px; height:36px; background:var(--sky); display:flex; align-items:center; justify-content:center; font-size:1rem; flex-shrink:0; color:var(--blue); }
+  .contact-label { font-size:0.68rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--text-muted); margin-bottom:0.2rem; }
+  .contact-val { font-size:0.88rem; font-weight:500; color:var(--navy); }
+  .contact-sub { font-size:0.78rem; color:var(--text-muted); margin-top:0.1rem; }
+
+  /* APPOINTMENT */
+  .appointment { padding:7rem 5rem; background:var(--off-white); display:grid; grid-template-columns:1fr 1.2fr; gap:6rem; }
+  .appt-left .section-title { margin-bottom:1.5rem; }
+  .appt-left p { font-size:0.9rem; line-height:1.8; color:var(--text-muted); font-weight:300; margin-bottom:1.5rem; }
+  .appt-steps { display:flex; flex-direction:column; gap:1.2rem; margin-top:2rem; }
+  .step { display:flex; gap:1rem; align-items:flex-start; }
+  .step-num { width:32px; height:32px; background:var(--blue); color:white; display:flex; align-items:center; justify-content:center; font-size:0.8rem; font-weight:700; flex-shrink:0; }
+  .step-text { font-size:0.85rem; color:var(--text-muted); line-height:1.6; padding-top:0.4rem; }
+  .step-text strong { display:block; color:var(--navy); font-weight:500; margin-bottom:0.2rem; font-size:0.88rem; }
+  .appt-form { background:white; padding:2.5rem; border:1px solid var(--border); }
+  .appt-form h3 { font-family:'Libre Baskerville',serif; font-size:1.3rem; color:var(--navy); margin-bottom:0.4rem; }
+  .appt-form p { font-size:0.78rem; color:var(--text-muted); margin-bottom:1.5rem; }
+  .form-row { display:grid; grid-template-columns:1fr 1fr; gap:1rem; }
+  .fg { display:flex; flex-direction:column; gap:0.4rem; margin-bottom:0.8rem; }
+  .fg label { font-size:0.68rem; letter-spacing:0.12em; text-transform:uppercase; color:var(--text-muted); font-weight:500; }
+  .fg input, .fg select, .fg textarea { border:1px solid var(--border); padding:0.7rem 1rem; font-family:'IBM Plex Sans',sans-serif; font-size:0.85rem; color:var(--text); outline:none; transition:border-color 0.2s; background:var(--off-white); }
+  .fg input:focus, .fg select:focus, .fg textarea:focus { border-color:var(--blue); background:white; }
+  .fg textarea { resize:vertical; min-height:80px; }
+  .privacy-note { font-size:0.72rem; color:var(--text-muted); line-height:1.6; margin:0.5rem 0 1rem; }
+  .privacy-note a { color:var(--blue); text-decoration:none; }
+  .submit-btn { width:100%; background:var(--blue); color:white; border:none; padding:1rem; font-family:'IBM Plex Sans',sans-serif; font-size:0.88rem; font-weight:500; cursor:pointer; transition:background 0.2s; letter-spacing:0.04em; }
+  .submit-btn:hover { background:var(--navy); }
+
+  /* TESTIMONIALS */
+  .testimonials { padding:6rem 5rem; background:white; }
+  .testi-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:1.5rem; margin-top:3.5rem; }
+  .testi-card { padding:2rem; border:1px solid var(--border); position:relative; transition:box-shadow 0.3s; }
+  .testi-card:hover { box-shadow:0 4px 20px rgba(0,0,0,0.06); }
+  .testi-card::before { content:'"'; font-family:'Libre Baskerville',serif; font-size:4rem; color:var(--sky); position:absolute; top:0.5rem; right:1.5rem; line-height:1; }
+  .testi-stars { color:#F0B429; font-size:0.85rem; margin-bottom:1rem; }
+  .testi-text { font-size:0.88rem; line-height:1.8; color:var(--text-muted); margin-bottom:1.5rem; font-style:italic; font-family:'Libre Baskerville',serif; }
+  .testi-author { font-size:0.75rem; font-weight:500; color:var(--navy); }
+  .testi-date { font-size:0.72rem; color:var(--text-muted); margin-top:0.2rem; }
+
+  /* FOOTER */
+  footer { background:var(--navy); color:rgba(255,255,255,0.5); }
+  .footer-main { padding:4rem 5rem; display:grid; grid-template-columns:2fr 1fr 1fr 1.5fr; gap:3rem; }
+  .footer-logo-name { font-family:'Libre Baskerville',serif; font-size:1.05rem; font-weight:700; color:white; margin-bottom:0.2rem; }
+  .footer-logo-sub { font-size:0.68rem; letter-spacing:0.1em; text-transform:uppercase; color:rgba(255,255,255,0.35); margin-bottom:1.2rem; }
+  .footer-brand p { font-size:0.82rem; line-height:1.8; font-weight:300; }
+  .footer-col h4 { font-size:0.68rem; letter-spacing:0.15em; text-transform:uppercase; color:var(--sky); margin-bottom:1.2rem; }
+  .footer-col ul { list-style:none; display:flex; flex-direction:column; gap:0.6rem; }
+  .footer-col ul li a { font-size:0.82rem; color:rgba(255,255,255,0.4); text-decoration:none; transition:color 0.2s; }
+  .footer-col ul li a:hover { color:white; }
+  .footer-col p { font-size:0.82rem; line-height:1.8; font-weight:300; }
+  .kassenhinweis { margin-top:1.5rem; background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.1); padding:1rem 1.2rem; font-size:0.78rem; line-height:1.6; }
+  .kassenhinweis strong { display:block; color:rgba(255,255,255,0.7); margin-bottom:0.3rem; font-size:0.72rem; letter-spacing:0.08em; text-transform:uppercase; }
+  .footer-bottom { border-top:1px solid rgba(255,255,255,0.08); padding:1.5rem 5rem; display:flex; justify-content:space-between; align-items:center; font-size:0.73rem; opacity:0.35; }
+  .footer-bottom-links { display:flex; gap:2rem; }
+  .footer-bottom-links a { color:inherit; text-decoration:none; }
+
+	@media (max-width: 1024px) {
+
+    /* Global Paddings reduzieren */
+    .topbar, nav, .notice-bar, .leistungen, .team, .info-section, .appointment, .testimonials, .footer-main, .footer-bottom {
+      padding-left: 1.5rem !important;
+      padding-right: 1.5rem !important;
+    }
+
+    /* Topbar Anpassung */
+    .topbar { flex-direction: column; text-align: center; gap: 0.5rem; padding-top: 0.6rem; padding-bottom: 0.6rem; }
+    .topbar-right { flex-direction: column; gap: 0.4rem; align-items: center; }
+
+    /* Hamburger Menu anzeigen */
+    .menu-toggle { display: flex; }
+
+    /* Navigationsleiste mobil umgestalten */
+    nav { padding-top: 0.8rem; padding-bottom: 0.8rem; }
+    .nav-links {
+      position: absolute; top: 100%; left: 0; right: 0;
+      background: var(--white); border-bottom: 1px solid var(--border);
+      flex-direction: column; gap: 0; padding: 0;
+      max-height: 0; overflow: hidden; opacity: 0;
+      transition: all 0.35s ease-in-out; pointer-events: none;
+      box-shadow: 0 10px 15px rgba(0,0,0,0.05);
+    }
+    .nav-links.active { max-height: 500px; opacity: 1; pointer-events: auto; }
+    .nav-links li { border-bottom: 1px solid rgba(13,43,69,0.05); width: 100%; }
+    .nav-links li a { padding: 1rem 1.5rem; display: block; font-size: 0.9rem; font-weight: 500; }
+    
+    /* Mobiles Dropdown */
+    .dropdown-menu { position: static; transform: none !important; opacity: 1; visibility: visible; display: none; box-shadow: none; background: var(--off-white); padding: 0; margin: 0; border: none; border-top: 1px solid rgba(13,43,69,0.05); }
+    .dropdown-menu.show { display: flex; }
+    .dropdown-menu li a { padding-left: 2.5rem; }
+    .nav-actions { display: none; } /* Standard-Buttons ausblenden für mobiles cleanes Design */
+
+    /* Notice Bar zentrieren */
+    .notice-bar { text-align: center; justify-content: center; font-size: 0.8rem; }
+
+    /* Hero Sektion */
+    .hero { grid-template-columns: 1fr; min-height: auto; }
+    .hero-left { padding: 4rem 1.5rem; }
+    .hero-title { font-size: 2rem; }
+    .hero-ctas { flex-direction: column; gap: 0.8rem; }
+    .btn-primary-lg, .btn-secondary-lg { width: 100%; }
+    .hero-info-row { grid-template-columns: 1fr; gap: 1rem; margin-top: 2rem; padding-top: 1.5rem; }
+    .hero-right { height: 300px; order: -1; } /* Bild nach oben auf dem Handy */
+    .hero-card { left: 1.5rem; bottom: 1.5rem; right: 1.5rem; max-width: none; }
+
+    /* Sektions-Header */
+    .section-header { margin-bottom: 2.5rem; }
+    .section-title { font-size: 1.6rem; }
+
+    /* Raster-Strukturen auf einspaltig brechen */
+    .leistungen-grid { grid-template-columns: 1fr; gap: 1.2rem; }
+    .team-grid { grid-template-columns: 1fr; gap: 1.5rem; margin-top: 2.5rem; }
+    .testi-grid { grid-template-columns: 1fr; gap: 1.2rem; margin-top: 2.5rem; }
+
+    /* Praxis Sektion */
+    .praxis { grid-template-columns: 1fr; }
+    .praxis-content { padding: 4rem 1.5rem; }
+    .praxis-facts { grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .praxis-image { height: 280px; }
+
+    /* Info & Sprechzeiten */
+    .info-section { grid-template-columns: 1fr; gap: 3rem; padding-top: 4rem; padding-bottom: 4rem; }
+    .info-block h3 { margin-bottom: 1rem; }
+
+    /* Termin Sektion */
+    .appointment { grid-template-columns: 1fr; gap: 3rem; padding-top: 4rem; padding-bottom: 4rem; }
+    .appt-form { padding: 1.5rem; }
+    .form-row { grid-template-columns: 1fr; gap: 0; }
+
+    /* Footer */
+    .footer-main { grid-template-columns: 1fr; gap: 2rem; padding-top: 3rem; padding-bottom: 3rem; }
+    .footer-bottom { flex-direction: column; text-align: center; gap: 1rem; padding-top: 1.5rem; padding-bottom: 1.5rem; }
+    .footer-bottom-links { justify-content: center; gap: 1.5rem; }
+  }
+
+  /* Hamburger-Animation wenn aktiv */
+  .menu-toggle.open span:nth-child(1) { transform: rotate(45deg) translate(6px, 6px); }
+  .menu-toggle.open span:nth-child(2) { opacity: 0; }
+  .menu-toggle.open span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div>📍 Musterstraße 21, 12345 Musterstadt &nbsp;·&nbsp; U-Bahn: Stadtmitte</div>
+  <div class="topbar-right">
+    <span>📞 <a href="tel:+491234567890">+49 (0) 123 456 789</a></span>
+    <span>✉ <a href="#">praxis@dr-hartmann.de</a></span>
+    <span class="emergency-badge">Notfall: 116 117</span>
+  </div>
+</div>
+
+<nav>
+  <div class="nav-logo">
+    <span class="nav-logo-name">Dr. med. Andreas Hartmann</span>
+    <span class="nav-logo-sub">Facharzt für Allgemeinmedizin</span>
+  </div>
+  <ul class="nav-links">
+    <li>
+      <a href="#" class="dropdown-toggle" id="leistungenToggle">Leistungen</a>
+      <ul class="dropdown-menu" id="leistungenDropdown">
+        <li><a href="vorsorge.html">Vorsorgeuntersuchungen</a></li>
+        <li><a href="chronisch.html">Chronische Erkrankungen</a></li>
+        <li><a href="impfungen.html">Impfungen</a></li>
+        <li><a href="labor.html">Labordiagnostik</a></li>
+        <li><a href="diagnostik.html">EKG &amp; Lungenfunktion</a></li>
+        <li><a href="hausbesuche.html">Hausbesuche</a></li>
+      </ul>
+    </li>
+    <li><a href="#praxis">Die Praxis</a></li>
+    <li><a href="#team">Team</a></li>
+    <li><a href="#zeiten">Sprechzeiten</a></li>
+    <li><a href="#termin">Termin</a></li>
+  </ul>
+  <div class="nav-actions">
+    <button class="btn-tel">📞 Anrufen</button>
+    <a href="#termin" class="btn-termin" style="text-decoration: none; display: inline-block;">Online-Termin</a>
+  </div>
+</nav>
+
+<div class="notice-bar">
+  <span>ℹ️</span>
+  <div class="notice-text">
+    <strong>Aktuelle Information:</strong>
+    <span> Urlaubsvertretung vom 15.–29. August 2024. In dringenden Fällen wenden Sie sich an die Bereitschaftspraxis (116 117).</span>
+  </div>
+</div>
+
+<section class="hero">
+  <div class="hero-left">
+    <div class="hero-badge">Neue Patienten willkommen</div>
+    <h1 class="hero-title">Ihre Gesundheit,<br><strong>in guten Händen.</strong></h1>
+    <p class="hero-sub">Als Ihr Hausarzt begleite ich Sie und Ihre Familie mit umfassender medizinischer Versorgung – von der Vorsorge bis zur Behandlung, persönlich und verlässlich.</p>
+    <div class="hero-ctas">
+      <a href="#termin" class="btn-primary-lg" style="text-decoration: none; display: inline-block; text-align: center;">Termin online buchen</a>
+      <a href="leistungen.html" class="btn-secondary-lg" style="text-decoration: none; display: inline-block; text-align: center;">Leistungsübersicht</a>
+    </div>
+    <div class="hero-info-row">
+      <div><div class="hero-info-label">Kassen & Privat</div><div class="hero-info-val">Alle Kassen zugelassen</div></div>
+      <div><div class="hero-info-label">Erreichbarkeit</div><div class="hero-info-val">Mo–Fr geöffnet</div></div>
+      <div><div class="hero-info-label">Hausbesuche</div><div class="hero-info-val">Auf Anfrage möglich</div></div>
+    </div>
+  </div>
+  <div class="hero-right">
+    <img src="https://images.unsplash.com/photo-1666214280557-f1b5022eb634?w=1000&q=80" alt="Arztpraxis Sprechzimmer">
+    <div class="hero-card">
+      <p class="hero-card-title">Online-Termin buchen</p>
+      <p class="hero-card-text">Termine 24/7 online verfügbar – auch kurzfristig.</p>
+      <p class="hero-card-sub">Ø Wartezeit: unter 10 Minuten</p>
+    </div>
+  </div>
+</section>
+
+<section class="leistungen" id="leistungen">
+  <div class="section-header">
+    <div class="section-eyebrow">Unser Leistungsspektrum</div>
+    <h2 class="section-title">Medizinische Versorgung<br><em>aus einer Hand</em></h2>
+  </div>
+  <div class="leistungen-grid">
+    <div class="leistung-card">
+      <img src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=700&q=80" alt="Vorsorgeuntersuchung">
+      <div class="leistung-card-body">
+        <h3 class="leistung-title">Vorsorgeuntersuchungen</h3>
+        <p class="leistung-desc">Regelmäßige Check-ups und Früherkennung von Herz-Kreislauf-Erkrankungen, Diabetes und weiteren Erkrankungen – individuell abgestimmt.</p>
+        <a class="leistung-link" href="vorsorge.html">Mehr erfahren →</a>
+      </div>
+    </div>
+    <div class="leistung-card">
+      <img src="https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=700&q=80" alt="Medikamente chronische Erkrankungen">
+      <div class="leistung-card-body">
+        <h3 class="leistung-title">Chronische Erkrankungen</h3>
+        <p class="leistung-desc">Langfristige Begleitung bei Bluthochdruck, Diabetes, Asthma, Schilddrüsenerkrankungen und weiteren chronischen Leiden.</p>
+        <a class="leistung-link" href="chronisch.html">Mehr erfahren →</a>
+      </div>
+    </div>
+    <div class="leistung-card">
+      <img src="https://images.unsplash.com/photo-1579154204601-01588f351e67?w=700&q=80" alt="Impfung">
+      <div class="leistung-card-body">
+        <h3 class="leistung-title">Impfungen</h3>
+        <p class="leistung-desc">Alle empfohlenen Schutzimpfungen nach STIKO-Empfehlung, Reiseimpfungen und Auffrischungen – für Kinder und Erwachsene.</p>
+        <a class="leistung-link" href="impfungen.html">Mehr erfahren →</a>
+      </div>
+    </div>
+    <div class="leistung-card">
+      <img src="https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=700&q=80" alt="Labordiagnostik Blutabnahme">
+      <div class="leistung-card-body">
+        <h3 class="leistung-title">Labordiagnostik</h3>
+        <p class="leistung-desc">Blutbild, Urin, Stuhluntersuchungen und spezialisierte Laborwerte – schnelle Ergebnisse dank eigenem Labor.</p>
+        <a class="leistung-link" href="labor.html">Mehr erfahren →</a>
+      </div>
+    </div>
+    <div class="leistung-card">
+      <img src="https://images.unsplash.com/photo-1530026405186-ed1f139313f8?w=700&q=80" alt="EKG Herzuntersuchung">
+      <div class="leistung-card-body">
+        <h3 class="leistung-title">EKG & Lungenfunktion</h3>
+        <p class="leistung-desc">Ruhe-EKG, Langzeit-EKG, Belastungs-EKG sowie Spirometrie zur Beurteilung der Herzgesundheit und Lungenfunktion.</p>
+        <a class="leistung-link" href="diagnostik.html">Mehr erfahren →</a>
+      </div>
+    </div>
+    <div class="leistung-card">
+      <img src="https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?w=700&q=80" alt="Arztgespräch Attest">
+      <div class="leistung-card-body">
+        <h3 class="leistung-title">Atteste & Bescheinigungen</h3>
+        <p class="leistung-desc">Arbeitsunfähigkeitsbescheinigungen, Sportatteste, Reiseunfähigkeitsbescheinigungen und weitere Dokumente – zeitnah.</p>
+        <a class="leistung-link" href="hausbesuche.html">Mehr erfahren →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="praxis" id="praxis">
+  <div class="praxis-content">
+    <div class="section-eyebrow">Die Praxis</div>
+    <h2 class="section-title">Modern. Persönlich.<br><em>Verlässlich.</em></h2>
+    <p>Seit 2005 versorge ich als niedergelassener Allgemeinmediziner Patienten aller Altersgruppen in Musterstadt. Meine Praxis vereint moderne Medizintechnik mit echtem Engagement für den Patienten.</p>
+    <p>Kurze Wartezeiten, eine freundliche Atmosphäre und ein eingespieltes Team sind für uns täglich gelebter Anspruch.</p>
+    <div class="praxis-facts">
+      <div class="fact"><div class="fact-num">19+</div><div class="fact-label">Jahre Erfahrung</div></div>
+      <div class="fact"><div class="fact-num">2.800</div><div class="fact-label">Patientinnen & Patienten</div></div>
+      <div class="fact"><div class="fact-num">4.8★</div><div class="fact-label">Google-Bewertung</div></div>
+      <div class="fact"><div class="fact-num">8</div><div class="fact-label">Teammitglieder</div></div>
+    </div>
+  </div>
+  <div class="praxis-image">
+    <img src="https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?w=900&q=80" alt="Moderne Arztpraxis">
+  </div>
+</section>
+
+<section class="team" id="team">
+  <div class="section-header">
+    <div class="section-eyebrow">Unser Team</div>
+    <h2 class="section-title">Menschen, denen Sie<br><em>vertrauen können</em></h2>
+  </div>
+  <div class="team-grid">
+    <div class="team-card">
+      <div class="team-photo"><img src="https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?w=500&q=80" alt="Dr. Hartmann"></div>
+      <div class="team-info">
+        <h3 class="team-name">Dr. med. Andreas Hartmann</h3>
+        <p class="team-role">Facharzt Allgemeinmedizin</p>
+        <p class="team-spec">Schwerpunkte: Kardiologie, Diabetologie, Geriatrie</p>
+      </div>
+    </div>
+    <div class="team-card">
+      <div class="team-photo"><img src="https://images.unsplash.com/photo-1594824476967-48c8b964273f?w=500&q=80" alt="Dr. Roth"></div>
+      <div class="team-info">
+        <h3 class="team-name">Dr. med. Sabine Roth</h3>
+        <p class="team-role">Ärztin in Weiterbildung</p>
+        <p class="team-spec">Schwerpunkte: Pädiatrie, Präventionsmedizin</p>
+      </div>
+    </div>
+    <div class="team-card">
+      <div class="team-photo"><img src="https://images.unsplash.com/photo-1527613426441-4da17471b66d?w=500&q=80" alt="Claudia Meier"></div>
+      <div class="team-info">
+        <h3 class="team-name">Claudia Meier</h3>
+        <p class="team-role">Medizinische Fachangestellte</p>
+        <p class="team-spec">Terminvergabe, Labor, Praxisorganisation</p>
+      </div>
+    </div>
+    <div class="team-card">
+      <div class="team-photo"><img src="https://images.unsplash.com/photo-1551836022-d5d88e9218df?w=500&q=80" alt="Julia Braun"></div>
+      <div class="team-info">
+        <h3 class="team-name">Julia Braun</h3>
+        <p class="team-role">MFA & Praxismanagement</p>
+        <p class="team-spec">Abrechnung, EKG, Blutentnahme</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="info-section" id="zeiten">
+  <div class="info-block">
+    <h3>Sprechzeiten</h3>
+    <table class="hours-table">
+      <tr><td>Montag</td><td>08:00 – 12:00 &amp; 15:00 – 18:00</td></tr>
+      <tr><td>Dienstag</td><td>08:00 – 12:00 &amp; 15:00 – 18:00</td></tr>
+      <tr><td>Mittwoch</td><td>08:00 – 13:00</td></tr>
+      <tr><td>Donnerstag</td><td>08:00 – 12:00 &amp; 15:00 – 18:00</td></tr>
+      <tr><td>Freitag</td><td>08:00 – 13:00</td></tr>
+      <tr><td>Samstag</td><td class="closed">Geschlossen</td></tr>
+      <tr><td>Sonntag</td><td class="closed">Geschlossen</td></tr>
+    </table>
+    <p style="font-size:0.75rem; color:var(--text-muted); margin-top:1rem; line-height:1.6;">Notfall: <strong>116 117</strong> (kostenlos, 24/7)</p>
+  </div>
+  <div class="info-block">
+    <h3>Kontakt</h3>
+    <div class="contact-list">
+      <div class="contact-item"><div class="contact-icon">📍</div><div><p class="contact-label">Adresse</p><p class="contact-val">Musterstraße 21, EG</p><p class="contact-sub">12345 Musterstadt</p></div></div>
+      <div class="contact-item"><div class="contact-icon">📞</div><div><p class="contact-label">Telefon</p><p class="contact-val">+49 (0) 123 456 789</p><p class="contact-sub">Mo–Fr 08:00 – 12:00 Uhr</p></div></div>
+      <div class="contact-item"><div class="contact-icon">✉</div><div><p class="contact-label">E-Mail</p><p class="contact-val">praxis@dr-hartmann.de</p><p class="contact-sub">Kein Ersatz für Arztgespräch</p></div></div>
+      <div class="contact-item"><div class="contact-icon">🚇</div><div><p class="contact-label">Anreise</p><p class="contact-val">U-Bahn: Stadtmitte (5 min)</p><p class="contact-sub">Parkplätze im Hof verfügbar</p></div></div>
+    </div>
+  </div>
+  <div class="info-block">
+    <h3>Wichtige Hinweise</h3>
+    <div style="display:flex; flex-direction:column; gap:1rem;">
+      <div style="background:var(--sky-soft); border-left:3px solid var(--blue); padding:1rem 1.2rem;"><p style="font-size:0.72rem; font-weight:500; text-transform:uppercase; letter-spacing:0.08em; color:var(--blue); margin-bottom:0.4rem;">Versicherungsarten</p><p style="font-size:0.82rem; line-height:1.6; color:var(--text-muted);">Alle gesetzlichen und privaten Krankenversicherungen werden akzeptiert.</p></div>
+      <div style="background:#FEF9E7; border-left:3px solid #F0B429; padding:1rem 1.2rem;"><p style="font-size:0.72rem; font-weight:500; text-transform:uppercase; letter-spacing:0.08em; color:#7D5A00; margin-bottom:0.4rem;">Für Ihren Termin</p><p style="font-size:0.82rem; line-height:1.6; color:#7D5A00;">Bitte bringen Sie Ihre Versicherungskarte und wenn möglich Ihren Impfpass mit.</p></div>
+      <div style="background:var(--green-light); border-left:3px solid var(--green); padding:1rem 1.2rem;"><p style="font-size:0.72rem; font-weight:500; text-transform:uppercase; letter-spacing:0.08em; color:var(--green); margin-bottom:0.4rem;">Barrierefreier Zugang</p><p style="font-size:0.82rem; line-height:1.6; color:var(--green);">Die Praxis ist barrierefrei zugänglich. Aufzug und rollstuhlgerechte Räumlichkeiten vorhanden.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="appointment" id="termin">
+  <div class="appt-left">
+    <div class="section-eyebrow">Terminvereinbarung</div>
+    <h2 class="section-title">Ihren Termin<br><em>online buchen</em></h2>
+    <p>Sparen Sie Zeit und buchen Sie Ihren Termin bequem rund um die Uhr online. Wir bestätigen Ihre Anfrage innerhalb von 24 Stunden.</p>
+    <div class="appt-steps">
+      <div class="step"><div class="step-num">1</div><div class="step-text"><strong>Formular ausfüllen</strong>Geben Sie Ihre Kontaktdaten und den Grund Ihres Besuchs an.</div></div>
+      <div class="step"><div class="step-num">2</div><div class="step-text"><strong>Bestätigung erhalten</strong>Wir melden uns innerhalb eines Werktages mit einem Terminvorschlag.</div></div>
+      <div class="step"><div class="step-num">3</div><div class="step-text"><strong>Termin wahrnehmen</strong>Erscheinen Sie bitte 5 Minuten früher mit Versicherungskarte.</div></div>
+    </div>
+  </div>
+  <div class="appt-form">
+    <h3>Termin anfragen</h3>
+    <p>Alle Felder mit * sind Pflichtfelder</p>
+    <div class="form-row">
+      <div class="fg"><label>Vorname *</label><input type="text" placeholder="Hans"></div>
+      <div class="fg"><label>Nachname *</label><input type="text" placeholder="Müller"></div>
+    </div>
+    <div class="form-row">
+      <div class="fg"><label>Geburtsdatum *</label><input type="date"></div>
+      <div class="fg"><label>Telefon *</label><input type="tel" placeholder="+49 …"></div>
+    </div>
+    <div class="fg"><label>E-Mail-Adresse</label><input type="email" placeholder="ihre@email.de"></div>
+    <div class="fg"><label>Versicherung *</label>
+      <select>
+        <option>Gesetzliche Krankenversicherung (GKV)</option>
+        <option>Private Krankenversicherung (PKV)</option>
+        <option>Selbstzahler</option><option>Beihilfe</option>
+      </select>
+    </div>
+    <div class="form-row">
+      <div class="fg"><label>Wunschdatum</label><input type="date"></div>
+      <div class="fg"><label>Bevorzugte Uhrzeit</label>
+        <select>
+          <option>Früh (08:00–10:00)</option><option>Vormittag (10:00–12:00)</option>
+          <option>Nachmittag (15:00–17:00)</option><option>Spät (17:00–18:00)</option>
+        </select>
+      </div>
+    </div>
+    <div class="fg"><label>Grund des Besuchs *</label>
+      <select>
+        <option>Erstvorstellung / Neuer Patient</option><option>Akute Erkrankung</option>
+        <option>Kontrolluntersuchung</option><option>Vorsorgeuntersuchung (Check-up)</option>
+        <option>Impfung</option><option>Attest / Bescheinigung</option>
+        <option>Laborbefund besprechen</option><option>Sonstiges</option>
+      </select>
+    </div>
+    <div class="fg"><label>Anmerkungen</label><textarea placeholder="Symptome, besondere Hinweise, Vorerkrankungen..."></textarea></div>
+    <p class="privacy-note">Mit dem Absenden stimmen Sie der Verarbeitung Ihrer Daten gemäß unserer <a href="#">Datenschutzerklärung</a> zu.</p>
+    <button class="submit-btn">Termin anfragen →</button>
+  </div>
+</section>
+
+<section class="testimonials">
+  <div class="section-header">
+    <div class="section-eyebrow">Patientenstimmen</div>
+    <h2 class="section-title">Was unsere Patienten<br><em>über uns sagen</em></h2>
+  </div>
+  <div class="testi-grid">
+    <div class="testi-card">
+      <div class="testi-stars">★★★★★</div>
+      <p class="testi-text">Dr. Hartmann nimmt sich wirklich Zeit für jeden Patienten. Man wird nicht durch die Praxis gepeitscht, sondern fühlt sich als Mensch wahrgenommen.</p>
+      <p class="testi-author">Klaus R.</p><p class="testi-date">Patient seit 2016 · Google-Bewertung</p>
+    </div>
+    <div class="testi-card">
+      <div class="testi-stars">★★★★★</div>
+      <p class="testi-text">Ich bin seit Jahren Patientin und bin immer sehr zufrieden. Das Team ist freundlich, Wartezeiten sind kurz und man fühlt sich stets gut aufgehoben.</p>
+      <p class="testi-author">Monika S.</p><p class="testi-date">Patientin seit 2010 · Jameda-Bewertung</p>
+    </div>
+    <div class="testi-card">
+      <div class="testi-stars">★★★★★</div>
+      <p class="testi-text">Als Neupatientin wurde ich herzlich aufgenommen. Umfangreiche Untersuchung und sehr einfühlsame Beratung. Endlich ein Hausarzt, dem man wirklich vertraut.</p>
+      <p class="testi-author">Sandra K.</p><p class="testi-date">Patientin seit 2023 · Google-Bewertung</p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-main">
+    <div>
+      <p class="footer-logo-name">Dr. med. Andreas Hartmann</p>
+      <p class="footer-logo-sub">Facharzt für Allgemeinmedizin</p>
+      <p class="footer-brand" style="font-size:0.82rem; line-height:1.8; font-weight:300;">Ihre Hausarztpraxis in Musterstadt. Persönlich, kompetent und zuverlässig – für alle Kassen und Privatpatienten.</p>
+      <div class="kassenhinweis"><strong>Kassen & Zulassung</strong>Zugelassen für alle gesetzlichen Krankenkassen (GKV) sowie Privatpatienten (PKV) und Selbstzahler nach GOÄ.</div>
+    </div>
+    <div class="footer-col">
+      <h4>Leistungen</h4>
+      <ul>
+        <li><a href="vorsorge.html">Vorsorgeuntersuchungen</a></li><li><a href="chronisch.html">Chronische Erkrankungen</a></li>
+        <li><a href="impfungen.html">Impfungen</a></li><li><a href="labor.html">Labordiagnostik</a></li>
+        <li><a href="diagnostik.html">EKG & Lungenfunktion</a></li><li><a href="hausbesuche.html">Hausbesuche</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Praxis</h4>
+      <ul>
+        <li><a href="ueber_dr_hartmann.html">Über Dr. Hartmann</a></li><li><a href="unser_team.html">Unser Team</a></li>
+        <li><a href="sprechzeiten.html">Sprechzeiten</a></li><li><a href="online_termin.html">Online-Termin</a></li><li><a href="fuer_neue_patienten.html">Für neue Patienten</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Kontakt & Notfall</h4>
+      <p>Musterstraße 21<br>12345 Musterstadt<br><br>📞 +49 (0) 123 456 789<br>✉ praxis@dr-hartmann.de<br><br><strong style="color:rgba(255,255,255,0.7);">Bereitschaftsdienst:</strong><br>116 117 (24/7)</p>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2024 Dr. med. Andreas Hartmann · Alle Rechte vorbehalten</span>
+    <div class="footer-bottom-links">
+      <a href="#">Impressum</a><a href="#">Datenschutz</a><a href="#">Barrierefreiheit</a>
+    </div>
+  </div>
+
+<script>
+  document.getElementById('leistungenToggle').addEventListener('click', function(e) {
+    e.preventDefault();
+    document.getElementById('leistungenDropdown').classList.toggle('show');
+  });
+
+  // Schließt das Dropdown, wenn man außerhalb klickt
+  window.addEventListener('click', function(e) {
+    if (!document.getElementById('leistungenToggle').contains(e.target)) {
+      document.getElementById('leistungenDropdown').classList.remove('show');
+    }
+  });
+</script>
+
+</footer>
+</body>
+</html>

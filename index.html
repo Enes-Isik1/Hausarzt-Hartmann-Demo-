@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-transform="refresh" content="1;url=hausarzt.html">
+<title>Dr. med. Andreas Hartmann – Hausarztpraxis</title>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@400;700&family=IBM+Plex+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --navy: #0D2B45;
+    --blue: #1B6CA8;
+    --sky-soft: #EBF5FB;
+    --text-muted: #5A6E7F;
+    --white: #FFFFFF;
+  }
+  
+  body { font-family: 'IBM Plex Sans', sans-serif; background: var(--sky-soft); color: var(--navy); min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 2rem; }
+
+  .redirect-card { background: var(--white); padding: 3.5rem 2.5rem; text-align: center; box-shadow: 0 10px 30px rgba(13, 43, 69, 0.08); border-top: 4px solid var(--blue); max-width: 480px; width: 100%; }
+  .logo-name { font-family: 'Libre Baskerville', serif; font-size: 1.4rem; font-weight: 700; color: var(--navy); margin-bottom: 0.3rem; }
+  .logo-sub { font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 2.5rem; }
+
+  /* Eleganter, moderner Lade-Spinner */
+
+  .spinner { width: 40px; height: 40px; border: 3px solid rgba(27, 108, 168, 0.1); border-radius: 50%; border-top-color: var(--blue); margin: 0 auto 2rem; animation: spin 0.8s linear infinite; }
+
+  @keyframes spin {
+
+    to { transform: rotate(360deg); }
+  }
+
+  .msg { font-size: 0.95rem; color: var(--navy); margin-bottom: 0.5rem; font-weight: 400; }
+  .sub-msg { font-size: 0.82rem; color: var(--text-muted); margin-bottom: 2rem; }
+  .btn-forward { display: inline-block; background: var(--blue); color: var(--white); text-decoration: none; padding: 0.8rem 1.8rem; font-size: 0.85rem; font-weight: 500; transition: background 0.2s; }
+  .btn-forward:hover { background: var(--navy); }
+
+</style>
+</head>
+<body>
+
+<div class="redirect-card">
+  <div class="logo-name">Dr. med. Andreas Hartmann</div>
+  <div class="logo-sub">Facharzt für Allgemeinmedizin</div>
+  
+  <div class="spinner"></div>
+  
+  <p class="msg">Sie werden zur offiziellen Webseite weitergeleitet.</p>
+  <p class="sub-msg">Bitte warten Sie einen kurzen Moment...</p>
+  
+  <a href="hausarzt.html" class="btn-forward">Direkt zur Startseite →</a>
+</div>
+
+</body>
+</html>

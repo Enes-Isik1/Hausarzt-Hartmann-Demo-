@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Unser Team – Hausarztpraxis</title>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=IBM+Plex+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --navy: #0D2B45; --blue: #1B6CA8; --sky-soft: #EBF5FB; --white: #FFFFFF;
+    --off-white: #F6F8FA; --text: #1A2733; --text-muted: #5A6E7F; --border: rgba(13,43,69,0.1);
+  }
+  body { font-family: 'IBM Plex Sans', sans-serif; background: var(--off-white); color: var(--text); padding: 5rem 2rem; }
+  .container { max-width: 1200px; margin: 0 auto; }
+  .section-header { text-align: center; margin-bottom: 4rem; }
+  .section-eyebrow { font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--blue); margin-bottom: 0.8rem; justify-content: center; display: flex; align-items: center; gap: 0.8rem; }
+  .section-title { font-family: 'Libre Baskerville', serif; font-size: 2.6rem; font-weight: 400; color: var(--navy); line-height: 1.25; }
+  .team-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 2rem; margin-top: 3.5rem; }
+  .team-card { background: var(--white); border: 1px solid var(--border); overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.02); }
+  .team-photo { aspect-ratio: 1; overflow: hidden; background: #e0e0e0; }
+  .team-photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .team-info { padding: 1.5rem; }
+  .team-name { font-family: 'Libre Baskerville', serif; font-size: 1.1rem; font-weight: 700; color: var(--navy); margin-bottom: 0.2rem; }
+  .team-role { font-size: 0.72rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--blue); font-weight: 500; margin-bottom: 0.5rem; }
+  .team-spec { font-size: 0.78rem; color: var(--text-muted); line-height: 1.5; font-weight: 300; }
+  .btn-back { display: inline-block; margin-top: 3rem; color: var(--blue); text-decoration: none; font-size: 0.85rem; font-weight: 500; }
+
+	@media (max-width: 1024px) {
+
+    /* Global Paddings reduzieren */
+    .topbar, nav, .notice-bar, .leistungen, .team, .info-section, .appointment, .testimonials, .footer-main, .footer-bottom {
+      padding-left: 1.5rem !important;
+      padding-right: 1.5rem !important;
+    }
+
+    /* Topbar Anpassung */
+    .topbar { flex-direction: column; text-align: center; gap: 0.5rem; padding-top: 0.6rem; padding-bottom: 0.6rem; }
+    .topbar-right { flex-direction: column; gap: 0.4rem; align-items: center; }
+
+    /* Hamburger Menu anzeigen */
+    .menu-toggle { display: flex; }
+
+    /* Navigationsleiste mobil umgestalten */
+    nav { padding-top: 0.8rem; padding-bottom: 0.8rem; }
+    .nav-links {
+      position: absolute; top: 100%; left: 0; right: 0;
+      background: var(--white); border-bottom: 1px solid var(--border);
+      flex-direction: column; gap: 0; padding: 0;
+      max-height: 0; overflow: hidden; opacity: 0;
+      transition: all 0.35s ease-in-out; pointer-events: none;
+      box-shadow: 0 10px 15px rgba(0,0,0,0.05);
+    }
+    .nav-links.active { max-height: 500px; opacity: 1; pointer-events: auto; }
+    .nav-links li { border-bottom: 1px solid rgba(13,43,69,0.05); width: 100%; }
+    .nav-links li a { padding: 1rem 1.5rem; display: block; font-size: 0.9rem; font-weight: 500; }
+    
+    /* Mobiles Dropdown */
+    .dropdown-menu { position: static; transform: none !important; opacity: 1; visibility: visible; display: none; box-shadow: none; background: var(--off-white); padding: 0; margin: 0; border: none; border-top: 1px solid rgba(13,43,69,0.05); }
+    .dropdown-menu.show { display: flex; }
+    .dropdown-menu li a { padding-left: 2.5rem; }
+    .nav-actions { display: none; } /* Standard-Buttons ausblenden für mobiles cleanes Design */
+
+    /* Notice Bar zentrieren */
+    .notice-bar { text-align: center; justify-content: center; font-size: 0.8rem; }
+
+    /* Hero Sektion */
+    .hero { grid-template-columns: 1fr; min-height: auto; }
+    .hero-left { padding: 4rem 1.5rem; }
+    .hero-title { font-size: 2rem; }
+    .hero-ctas { flex-direction: column; gap: 0.8rem; }
+    .btn-primary-lg, .btn-secondary-lg { width: 100%; }
+    .hero-info-row { grid-template-columns: 1fr; gap: 1rem; margin-top: 2rem; padding-top: 1.5rem; }
+    .hero-right { height: 300px; order: -1; } /* Bild nach oben auf dem Handy */
+    .hero-card { left: 1.5rem; bottom: 1.5rem; right: 1.5rem; max-width: none; }
+
+    /* Sektions-Header */
+    .section-header { margin-bottom: 2.5rem; }
+    .section-title { font-size: 1.6rem; }
+
+    /* Raster-Strukturen auf einspaltig brechen */
+    .leistungen-grid { grid-template-columns: 1fr; gap: 1.2rem; }
+    .team-grid { grid-template-columns: 1fr; gap: 1.5rem; margin-top: 2.5rem; }
+    .testi-grid { grid-template-columns: 1fr; gap: 1.2rem; margin-top: 2.5rem; }
+
+    /* Praxis Sektion */
+    .praxis { grid-template-columns: 1fr; }
+    .praxis-content { padding: 4rem 1.5rem; }
+    .praxis-facts { grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .praxis-image { height: 280px; }
+
+    /* Info & Sprechzeiten */
+    .info-section { grid-template-columns: 1fr; gap: 3rem; padding-top: 4rem; padding-bottom: 4rem; }
+    .info-block h3 { margin-bottom: 1rem; }
+
+    /* Termin Sektion */
+    .appointment { grid-template-columns: 1fr; gap: 3rem; padding-top: 4rem; padding-bottom: 4rem; }
+    .appt-form { padding: 1.5rem; }
+    .form-row { grid-template-columns: 1fr; gap: 0; }
+
+    /* Footer */
+    .footer-main { grid-template-columns: 1fr; gap: 2rem; padding-top: 3rem; padding-bottom: 3rem; }
+    .footer-bottom { flex-direction: column; text-align: center; gap: 1rem; padding-top: 1.5rem; padding-bottom: 1.5rem; }
+    .footer-bottom-links { justify-content: center; gap: 1.5rem; }
+  }
+
+  /* Hamburger-Animation wenn aktiv */
+  .menu-toggle.open span:nth-child(1) { transform: rotate(45deg) translate(6px, 6px); }
+  .menu-toggle.open span:nth-child(2) { opacity: 0; }
+  .menu-toggle.open span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+
+</style>
+</head>
+<body>
+
+<div class="container">
+  <div class="section-header">
+    <div class="section-eyebrow">Kompetenz und Herz</div>
+    <h1 class="section-title">Unser Team</h1>
+  </div>
+  
+  <div class="team-grid">
+    <div class="team-card">
+      <div class="team-photo"><img src="https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?w=500&q=80" alt="Dr. Hartmann"></div>
+      <div class="team-info">
+        <h3 class="team-name">Dr. med. Andreas Hartmann</h3>
+        <p class="team-role">Facharzt Allgemeinmedizin</p>
+        <p class="team-spec">Praxisinhaber. Schwerpunkte: Kardiologie, Diabetologie, Geriatrie.</p>
+      </div>
+    </div>
+    <div class="team-card">
+      <div class="team-photo"><img src="https://images.unsplash.com/photo-1594824476967-48c8b964273f?w=500&q=80" alt="Dr. Roth"></div>
+      <div class="team-info">
+        <h3 class="team-name">Dr. med. Sabine Roth</h3>
+        <p class="team-role">Ärztin in Weiterbildung</p>
+        <p class="team-spec">Unterstützt unsere Praxis im Bereich Pädiatrie und Präventionsmedizin.</p>
+      </div>
+    </div>
+    <div class="team-card">
+      <div class="team-photo"><img src="https://images.unsplash.com/photo-1527613426441-4da17471b66d?w=500&q=80" alt="Claudia Meier"></div>
+      <div class="team-info">
+        <h3 class="team-name">Claudia Meier</h3>
+        <p class="team-role">Medizinische Fachangestellte</p>
+        <p class="team-spec">Zuständig für Terminvergabe, Labor, Blutentnahme und Praxisorganisation.</p>
+      </div>
+    </div>
+    <div class="team-card">
+      <div class="team-photo"><img src="https://images.unsplash.com/photo-1551836022-d5d88e9218df?w=500&q=80" alt="Julia Braun"></div>
+      <div class="team-info">
+        <h3 class="team-name">Julia Braun</h3>
+        <p class="team-role">MFA & Praxismanagement</p>
+        <p class="team-spec">Verantwortlich für Abrechnung, Praxismanagement, EKG und Funktionsdiagnostik.</p>
+      </div>
+    </div>
+  </div>
+  
+  <a href="hausarzt.html" class="btn-back">← Zurück zur Startseite</a>
+</div>
+
+</body>
+</html>

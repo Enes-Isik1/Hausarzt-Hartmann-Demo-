@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Leistungsübersicht – Dr. med. Andreas Hartmann</title>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=IBM+Plex+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --navy: #0D2B45; --navy-light: #163E60; --blue: #1B6CA8;
+    --sky: #D6EAF8; --sky-soft: #EBF5FB; --white: #FFFFFF;
+    --off-white: #F6F8FA; --text: #1A2733; --text-muted: #5A6E7F;
+    --accent: #2E86C1; --border: rgba(13,43,69,0.1);
+  }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'IBM Plex Sans', sans-serif; background: var(--white); color: var(--text); overflow-x: hidden; }
+
+  /* TOPBAR */
+  .topbar { background:var(--navy); color:rgba(255,255,255,0.7); padding:0.5rem 5rem; display:flex; justify-content:space-between; align-items:center; font-size:0.78rem; }
+  .topbar a { color:rgba(255,255,255,0.7); text-decoration:none; }
+  .topbar-right { display:flex; gap:2rem; }
+  .emergency-badge { background:#C0392B; color:white; padding:0.3rem 0.8rem; font-size:0.72rem; font-weight:500; letter-spacing:0.05em; }
+
+  /* NAV */
+  nav { position:sticky; top:0; z-index:100; background:var(--white); border-bottom:1px solid var(--border); padding:1rem 5rem; display:flex; align-items:center; justify-content:space-between; box-shadow:0 1px 8px rgba(0,0,0,0.06); }
+  .nav-logo { display:flex; flex-direction:column; }
+  .nav-logo-name { font-family:'Libre Baskerville',serif; font-size:1.1rem; font-weight:700; color:var(--navy); }
+  .nav-logo-sub { font-size:0.7rem; letter-spacing:0.08em; text-transform:uppercase; color:var(--text-muted); margin-top:0.1rem; }
+  .nav-links { display:flex; gap:2rem; list-style:none; }
+  .nav-links li { position: relative; }
+  .nav-links a { font-size:0.82rem; color:var(--text-muted); text-decoration:none; transition:color 0.2s; }
+  .nav-links a:hover { color:var(--blue); }
+  .nav-actions { display:flex; gap:0.8rem; align-items:center; }
+  .btn-tel { background:transparent; border:1.5px solid var(--blue); color:var(--blue); padding:0.55rem 1.2rem; font-family:'IBM Plex Sans',sans-serif; font-size:0.78rem; font-weight:500; cursor:pointer; transition:all 0.2s; }
+  .btn-tel:hover { background:var(--sky); }
+  .btn-termin { background:var(--blue); color:white; border:none; padding:0.6rem 1.4rem; font-family:'IBM Plex Sans',sans-serif; font-size:0.78rem; font-weight:500; cursor:pointer; transition:background 0.2s; }
+  .btn-termin:hover { background:var(--navy); }
+
+  /* DROPDOWN STYLING */
+  .dropdown-toggle { cursor: pointer; display: flex; align-items: center; gap: 0.3rem; }
+  .dropdown-toggle::after { content: '▾'; font-size: 0.7rem; color: var(--text-muted); }
+  .dropdown-menu {
+    position: absolute; top: 100%; left: 50%; transform: translateX(-50%) translateY(10px);
+    background: var(--white); border: 1px solid var(--border); box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+    padding: 1rem 0; list-style: none; display: flex; flex-direction: column; min-width: 240px;
+    opacity: 0; visibility: hidden; transition: all 0.2s ease; z-index: 200; margin-top: 0.5rem;
+  }
+  .dropdown-menu.show { opacity: 1; visibility: visible; transform: translateX(-50%) translateY(0); }
+  .dropdown-menu li a { padding: 0.7rem 1.5rem; display: block; width: 100%; font-size: 0.82rem; color: var(--text-muted); transition: background 0.2s, color 0.2s; }
+  .dropdown-menu li a:hover { background: var(--sky-soft); color: var(--blue); }
+
+  /* NOTICE BAR */
+  .notice-bar { background:#FEF9E7; border-top:2px solid #F0B429; border-bottom:1px solid rgba(240,180,41,0.3); padding:0.9rem 5rem; display:flex; align-items:center; gap:1rem; font-size:0.83rem; }
+  .notice-text strong { font-weight:500; color:#7D5A00; }
+  .notice-text span { color:#7D5A00; }
+
+  /* CONTENT AREA */
+  .page-content { padding: 7rem 5rem; background: var(--white); }
+  .container { max-width: 1100px; margin: 0 auto; }
+  .section-header { text-align: left; margin-bottom: 3.5rem; }
+  .section-eyebrow { font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--blue); margin-bottom: 0.8rem; display: flex; align-items: center; gap: 0.8rem; }
+  .section-eyebrow::after { content: ''; flex: 0 0 2.5rem; height: 1px; background: var(--blue); }
+  .section-title { font-family: 'Libre Baskerville', serif; font-size: 2.6rem; font-weight: 400; color: var(--navy); line-height: 1.25; }
+  .section-title em { font-style: italic; }
+  
+  .intro-text { font-size: 1.05rem; line-height: 1.8; color: var(--text-muted); font-weight: 300; max-width: 800px; margin-bottom: 4rem; }
+  
+  /* GRID LEISTUNGEN */
+  .grid-services { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 2rem; }
+  .service-card { background: var(--off-white); border: 1px solid var(--border); padding: 2.5rem; box-shadow: 0 4px 15px rgba(0,0,0,0.02); display: flex; flex-direction: column; justify-content: space-between; transition: transform 0.2s, border-color 0.2s; }
+  .service-card:hover { border-color: var(--blue); transform: translateY(-2px); }
+  .service-card h3 { font-family: 'Libre Baskerville', serif; font-size: 1.3rem; color: var(--navy); margin-bottom: 1rem; }
+  .service-card p { font-size: 0.9rem; line-height: 1.7; color: var(--text-muted); font-weight: 300; margin-bottom: 1.5rem; }
+  
+  .leistung-btn { inline-size: fit-content; display: inline-flex; align-items: center; color: var(--blue); text-decoration: none; font-size: 0.82rem; font-weight: 500; letter-spacing: 0.05em; transition: color 0.2s; }
+  .leistung-btn:hover { color: var(--navy); }
+  
+  /* INFO BOX / FOOTER NOTE */
+  .info-box { background: var(--sky-soft); padding: 2rem; margin-top: 4rem; border-left: 3px solid var(--blue); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1.5rem; }
+  .info-box-text { font-size: 0.88rem; line-height: 1.6; color: var(--navy); font-weight: 400; max-width: 700px; }
+  
+  .btn-back { display: inline-block; margin-top: 2.5rem; color: var(--text-muted); text-decoration: none; font-size: 0.85rem; transition: color 0.2s; }
+  .btn-back:hover { color: var(--blue); }
+
+	@media (max-width: 1024px) {
+
+    /* Global Paddings reduzieren */
+    .topbar, nav, .notice-bar, .leistungen, .team, .info-section, .appointment, .testimonials, .footer-main, .footer-bottom {
+      padding-left: 1.5rem !important;
+      padding-right: 1.5rem !important;
+    }
+
+    /* Topbar Anpassung */
+    .topbar { flex-direction: column; text-align: center; gap: 0.5rem; padding-top: 0.6rem; padding-bottom: 0.6rem; }
+    .topbar-right { flex-direction: column; gap: 0.4rem; align-items: center; }
+
+    /* Hamburger Menu anzeigen */
+    .menu-toggle { display: flex; }
+
+    /* Navigationsleiste mobil umgestalten */
+    nav { padding-top: 0.8rem; padding-bottom: 0.8rem; }
+    .nav-links {
+      position: absolute; top: 100%; left: 0; right: 0;
+      background: var(--white); border-bottom: 1px solid var(--border);
+      flex-direction: column; gap: 0; padding: 0;
+      max-height: 0; overflow: hidden; opacity: 0;
+      transition: all 0.35s ease-in-out; pointer-events: none;
+      box-shadow: 0 10px 15px rgba(0,0,0,0.05);
+    }
+    .nav-links.active { max-height: 500px; opacity: 1; pointer-events: auto; }
+    .nav-links li { border-bottom: 1px solid rgba(13,43,69,0.05); width: 100%; }
+    .nav-links li a { padding: 1rem 1.5rem; display: block; font-size: 0.9rem; font-weight: 500; }
+    
+    /* Mobiles Dropdown */
+    .dropdown-menu { position: static; transform: none !important; opacity: 1; visibility: visible; display: none; box-shadow: none; background: var(--off-white); padding: 0; margin: 0; border: none; border-top: 1px solid rgba(13,43,69,0.05); }
+    .dropdown-menu.show { display: flex; }
+    .dropdown-menu li a { padding-left: 2.5rem; }
+    .nav-actions { display: none; } /* Standard-Buttons ausblenden für mobiles cleanes Design */
+
+    /* Notice Bar zentrieren */
+    .notice-bar { text-align: center; justify-content: center; font-size: 0.8rem; }
+
+    /* Hero Sektion */
+    .hero { grid-template-columns: 1fr; min-height: auto; }
+    .hero-left { padding: 4rem 1.5rem; }
+    .hero-title { font-size: 2rem; }
+    .hero-ctas { flex-direction: column; gap: 0.8rem; }
+    .btn-primary-lg, .btn-secondary-lg { width: 100%; }
+    .hero-info-row { grid-template-columns: 1fr; gap: 1rem; margin-top: 2rem; padding-top: 1.5rem; }
+    .hero-right { height: 300px; order: -1; } /* Bild nach oben auf dem Handy */
+    .hero-card { left: 1.5rem; bottom: 1.5rem; right: 1.5rem; max-width: none; }
+
+    /* Sektions-Header */
+    .section-header { margin-bottom: 2.5rem; }
+    .section-title { font-size: 1.6rem; }
+
+    /* Raster-Strukturen auf einspaltig brechen */
+    .leistungen-grid { grid-template-columns: 1fr; gap: 1.2rem; }
+    .team-grid { grid-template-columns: 1fr; gap: 1.5rem; margin-top: 2.5rem; }
+    .testi-grid { grid-template-columns: 1fr; gap: 1.2rem; margin-top: 2.5rem; }
+
+    /* Praxis Sektion */
+    .praxis { grid-template-columns: 1fr; }
+    .praxis-content { padding: 4rem 1.5rem; }
+    .praxis-facts { grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .praxis-image { height: 280px; }
+
+    /* Info & Sprechzeiten */
+    .info-section { grid-template-columns: 1fr; gap: 3rem; padding-top: 4rem; padding-bottom: 4rem; }
+    .info-block h3 { margin-bottom: 1rem; }
+
+    /* Termin Sektion */
+    .appointment { grid-template-columns: 1fr; gap: 3rem; padding-top: 4rem; padding-bottom: 4rem; }
+    .appt-form { padding: 1.5rem; }
+    .form-row { grid-template-columns: 1fr; gap: 0; }
+
+    /* Footer */
+    .footer-main { grid-template-columns: 1fr; gap: 2rem; padding-top: 3rem; padding-bottom: 3rem; }
+    .footer-bottom { flex-direction: column; text-align: center; gap: 1rem; padding-top: 1.5rem; padding-bottom: 1.5rem; }
+    .footer-bottom-links { justify-content: center; gap: 1.5rem; }
+  }
+
+  /* Hamburger-Animation wenn aktiv */
+  .menu-toggle.open span:nth-child(1) { transform: rotate(45deg) translate(6px, 6px); }
+  .menu-toggle.open span:nth-child(2) { opacity: 0; }
+  .menu-toggle.open span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+
+</style>
+</head>
+<body>
+
+<!-- HEADERSERVICE: TOPBAR -->
+<div class="topbar">
+  <div>📍 Musterstraße 21, 12345 Musterstadt &nbsp;·&nbsp; U-Bahn: Stadtmitte</div>
+  <div class="topbar-right">
+    <span>📞 <a href="tel:+491234567890">+49 (0) 123 456 789</a></span>
+    <span>✉ <a href="#">praxis@dr-hartmann.de</a></span>
+    <span class="emergency-badge">Notfall: 116 117</span>
+  </div>
+</div>
+
+<!-- HEADERSERVICE: NAV -->
+<nav>
+  <div class="nav-logo">
+    <span class="nav-logo-name">Dr. med. Andreas Hartmann</span>
+    <span class="nav-logo-sub">Facharzt für Allgemeinmedizin</span>
+  </div>
+  <ul class="nav-links">
+    <li>
+      <a href="#" class="dropdown-toggle" id="leistungenToggle">Leistungen</a>
+      <ul class="dropdown-menu" id="leistungenDropdown">
+        <li><a href="vorsorge.html">Vorsorgeuntersuchungen</a></li>
+        <li><a href="chronisch.html">Chronische Erkrankungen</a></li>
+        <li><a href="impfungen.html">Impfungen</a></li>
+        <li><a href="labor.html">Labordiagnostik</a></li>
+        <li><a href="diagnostik.html">EKG &amp; Lungenfunktion</a></li>
+        <li><a href="hausbesuche.html">Hausbesuche</a></li>
+      </ul>
+    </li>
+    <li><a href="hausarzt.html#praxis">Die Praxis</a></li>
+    <li><a href="hausarzt.html#team">Team</a></li>
+    <li><a href="hausarzt.html#zeiten">Sprechzeiten</a></li>
+    <li><a href="hausarzt.html#termin">Termin</a></li>
+  </ul>
+  <div class="nav-actions">
+    <button class="btn-tel" onclick="window.location.href='tel:+491234567890'">📞 Anrufen</button>
+    <button class="btn-termin" onclick="window.location.href='hausarzt.html#termin'">Online-Termin</button>
+  </div>
+</nav>
+
+<!-- HEADERSERVICE: INFOBAR -->
+<div class="notice-bar">
+  <span>ℹ️</span>
+  <div class="notice-text">
+    <strong>Aktuelle Information:</strong>
+    <span> Urlaubsvertretung vom 15.–29. August 2024. In dringenden Fällen wenden Sie sich an die Bereitschaftspraxis (116 117).</span>
+  </div>
+</div>
+
+<!-- CONTENT AREA -->
+<section class="page-content">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-eyebrow">Medizinische Versorgung</div>
+      <h1 class="section-title">Unsere <em>Leistungsübersicht</em></h1>
+    </div>
+    
+    <p class="intro-text">
+      Wir bieten Ihnen eine lückenlose, moderne hausärztliche Betreuung. Von der präventiven Vorsorge über die Diagnostik bis hin zur langfristigen Begleitung bei chronischen Erkrankungen stehen wir Ihnen jederzeit verlässlich zur Seite.[cite: 1]
+    </p>
+    
+    <div class="grid-services">
+      <!-- 1. Vorsorgeuntersuchungen -->
+      <div class="service-card">
+        <div>
+          <h3>Vorsorgeuntersuchungen</h3>
+          <p>Regelmäßige Check-ups, Hautkrebs-Screenings und Früherkennung von Herz-Kreislauf-Erkrankungen oder Diabetes – individuell auf Sie abgestimmt.[cite: 1]</p>
+        </div>
+        <a href="vorsorge.html" class="leistung-btn">Details ansehen →</a>
+      </div>
+      
+      <!-- 2. Chronische Erkrankungen -->
+      <div class="service-card">
+        <div>
+          <h3>Chronische Erkrankungen</h3>
+          <p>Strukturierte und langfristige Begleitung (DMP) bei Bluthochdruck, Diabetes mellitus, Asthma, COPD und Erkrankungen der Schilddrüse.[cite: 1]</p>
+        </div>
+        <a href="chronisch.html" class="leistung-btn">Details ansehen →</a>
+      </div>
+      
+      <!-- 3. Impfungen -->
+      <div class="service-card">
+        <div>
+          <h3>Impfungen</h3>
+          <p>Überprüfung des Impfstatus, alle Standard- und Auffrischimpfungen nach STIKO-Empfehlung sowie spezialisierte Reiseimpfberatung.[cite: 1]</p>
+        </div>
+        <a href="impfungen.html" class="leistung-btn">Details ansehen →</a>
+      </div>
+      
+      <!-- 4. Labordiagnostik -->
+      <div class="service-card">
+        <div>
+          <h3>Labordiagnostik</h3>
+          <p>Umfassende Blutanalysen, Urin- und Stuhluntersuchungen. Schnelle und präzise Ergebnisse für eine fundierte medizinische Beurteilung.[cite: 1]</p>
+        </div>
+        <a href="labor.html" class="leistung-btn">Details ansehen →</a>
+      </div>
+      
+      <!-- 5. EKG & Lungenfunktion -->
+      <div class="service-card">
+        <div>
+          <h3>EKG &amp; Lungenfunktion</h3>
+          <p>Ruhe-, Langzeit- und Belastungs-EKG sowie Lungenfunktionsprüfungen (Spirometrie) zur exakten Abklärung von Herz und Atemwegen.[cite: 1]</p>
+        </div>
+        <a href="diagnostik.html" class="leistung-btn">Details ansehen →</a>
+      </div>
+      
+      <!-- 6. Hausbesuche -->
+      <div class="service-card">
+        <div>
+          <h3>Hausbesuche</h3>
+          <p>Für Patienten, die unsere Praxis aus gesundheitlichen Gründen vorübergehend oder dauerhaft nicht aufsuchen können, bieten wir medizinische Betreuung vor Ort.[cite: 1]</p>
+        </div>
+        <a href="hausbesuche.html" class="leistung-btn">Details ansehen →</a>
+      </div>
+    </div>
+
+    <div class="info-box">
+      <p class="info-box-text">
+        <strong>Sie benötigen ein Attest oder eine Krankschreibung?</strong><br>
+        Neben unserem medizinischen Kernangebot stellen wir Ihnen auch Arbeitsunfähigkeitsbescheinigungen, Sportatteste und Reiseunfähigkeitsbescheinigungen zeitnah aus.[cite: 1]
+      </p>
+      <a href="atteste_bescheinigungen.html" class="leistung-btn" style="color: var(--navy); font-weight: 500;">Zu den Attesten →</a>
+    </div>
+    
+    <a href="hausarzt.html" class="btn-back">← Zurück zur Startseite</a>
+  </div>
+</section>
+
+<!-- JAVASCRIPT FOR DROPDOWN -->
+<script>
+  document.getElementById('leistungenToggle').addEventListener('click', function(e) {
+    e.preventDefault();
+    document.getElementById('leistungenDropdown').classList.toggle('show');
+  });
+
+  window.addEventListener('click', function(e) {
+    if (!document.getElementById('leistungenToggle').contains(e.target)) {
+      document.getElementById('leistungenDropdown').classList.remove('show');
+    }
+  });
+</script>
+
+</body>
+</html>
